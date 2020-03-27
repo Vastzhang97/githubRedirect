@@ -10,3 +10,4 @@ raw.github.com
 status.github.com
 training.github.com
 github.io
+camo.githubusercontent.com

@@ -3,5 +3,8 @@
 
 # 使用方法
 
-1.克隆项目到本地，在本地运行 `getip.py` (注意：如果你使用的是python3，则需要安装BeautifulSoup4,不然会报错)
-2.根据得到的ip修改host
+1. 克隆项目到本地，安装则需要安装BeautifulSoup4  
+`pip install BeautifulSoup`
+2. 修改url.text,加入你需要的修改host的url。#注释url，程序将忽略该行。
+3. 在本地运行 `getip.py` 
+4. 程序将自动清除自动生成成的host,然后增加新解析的host。

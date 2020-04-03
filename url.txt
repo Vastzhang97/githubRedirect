@@ -13,3 +13,4 @@ status.github.com
 training.github.com
 github.io
 camo.githubusercontent.com
+github.githubassets.com

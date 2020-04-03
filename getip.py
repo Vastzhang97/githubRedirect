@@ -1,13 +1,9 @@
 # 获取github和其子域名的IP地址
-import os
-import re
 import platform
-from shutil import copyfile, copy
+import threading
 
 import requests
 from bs4 import BeautifulSoup
-import threading
-
 from requests.adapters import HTTPAdapter
 
 hosts = []
@@ -19,10 +15,11 @@ end_line = "# GitHub host end"
 def get_host():
     for i in open("url.txt"):
         url = i.strip()
-        t = MyThread(url)
-        t.setName(url)
-        thread_pool.append(t)
-        t.start()
+        if url.startswith("#") is False:
+            t = MyThread(url)
+            t.setName(url)
+            thread_pool.append(t)
+            t.start()
 
 
 class MyThread(threading.Thread):
@@ -34,6 +31,7 @@ class MyThread(threading.Thread):
     def run(self):
         host = self.url
         self.url = "http://ip.chinaz.com/" + host
+        print("开始查询 ", self.url)
         try:
             http_session = requests.Session()
             http_session.mount('http://', HTTPAdapter(max_retries=3))
@@ -50,7 +48,6 @@ class MyThread(threading.Thread):
 
 
 host_window = r"C:\Windows\System32\drivers\etc\hosts"
-host_mac = r"/etc/hosts"
 
 
 def wait_thread_result():
@@ -105,11 +102,7 @@ def delete_line(old_file, new_file, del_line):
 
 
 def write_host(hosts_value):
-    if platform.system() is "Windows":
-        output = open(host_window, 'a')
-    else:
-        output = open(host_mac, 'a')
-
+    output = open(host_window, 'a')
     output.write("\n")
     output.write(start_line + "\n")
     for inside in hosts_value:
